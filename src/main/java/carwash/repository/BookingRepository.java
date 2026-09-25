@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// работа с таблицей clients через JDBC (везде PreparedStatement с параметрами)
+// работа с таблицей clients через JDBC (везде PreparedStatement с параметрами).
 public class ClientRepository implements Repository<Client> {
 
     @Override

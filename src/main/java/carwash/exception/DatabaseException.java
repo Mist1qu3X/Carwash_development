@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 public class Main {
 
     public static void main(String[] args) {
-        // включаем UTF-8, иначе кириллица в консоли выводится криво
+        // включаем UTF-8, иначе кириллица в консоли выводится криво.
         try {
             System.setOut(new PrintStream(System.out, true, "UTF-8"));
         } catch (UnsupportedEncodingException e) {

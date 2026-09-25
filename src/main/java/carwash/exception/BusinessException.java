@@ -13,7 +13,7 @@ public class Main {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            // UTF-8 поддерживается всегда
+            // UTF-8 поддерживается всегда.
         }
         try {
             new ConsoleApp().run();
