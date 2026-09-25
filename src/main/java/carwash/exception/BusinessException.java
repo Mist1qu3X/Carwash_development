@@ -1,5 +1,6 @@
-package carwash;
+package carwash.exception;
 
+<<<<<<< HEAD
 import carwash.ui.ConsoleApp;
 
 import java.io.PrintStream;
@@ -20,5 +21,11 @@ public class Main {
         } catch (NoSuchElementException e) {
             // ввод закончился (например, поток закрыли) — выходим без ошибки
         }
+=======
+// ошибка нарушения бизнес-правил
+public class BusinessException extends RuntimeException {
+    public BusinessException(String message) {
+        super(message);
+>>>>>>> 4cae2f366d2c8f4e3fab74f5bed32f853c461031
     }
 }
