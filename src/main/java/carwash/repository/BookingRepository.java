@@ -17,10 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-<<<<<<< HEAD
-// работа с таблицей clients через JDBC (везде PreparedStatement с параметрами).
-public class ClientRepository implements Repository<Client> {
-=======
 // работа с таблицей bookings через JDBC
 public class BookingRepository implements Repository<Booking> {
 
@@ -28,7 +24,6 @@ public class BookingRepository implements Repository<Booking> {
             + "b.car_model, b.service_type, b.status, b.scheduled_at, b.price, "
             + "b.created_at, c.full_name AS client_name "
             + "FROM bookings b JOIN clients c ON c.id = b.client_id ";
->>>>>>> 4cae2f366d2c8f4e3fab74f5bed32f853c461031
 
     @Override
     public Booking save(Booking booking) {
