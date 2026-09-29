@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import carwash.exception.DatabaseException;
 import carwash.model.Booking;
+import carwash.model.Client;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,6 +24,10 @@ public class ExcelExporter implements Exporter {
 
     @Override
     public void export(List<Booking> bookings, String filePath) {
+        export(bookings, List.of(), filePath);
+    }
+
+    public void export(List<Booking> bookings, List<Client> clients, String filePath) {
         try (Workbook workbook = new XSSFWorkbook();
              FileOutputStream out = new FileOutputStream(filePath)) {
 
@@ -58,8 +63,31 @@ public class ExcelExporter implements Exporter {
                 row.createCell(7).setCellValue(b.getStatus().getTitle());
             }
 
+            Sheet clientSheet = workbook.createSheet("Клиенты");
+            String[] clientHeaders = {"ID", "Имя клиента", "Телефон", "Email", "Дата регистрации"};
+            Row clientHeaderRow = clientSheet.createRow(0);
+            for (int i = 0; i < clientHeaders.length; i++) {
+                Cell cell = clientHeaderRow.createCell(i);
+                cell.setCellValue(clientHeaders[i]);
+                cell.setCellStyle(headerStyle);
+            }
+
+            int clientRowIndex = 1;
+            for (Client client : clients) {
+                Row row = clientSheet.createRow(clientRowIndex++);
+                row.createCell(0).setCellValue(client.getId());
+                row.createCell(1).setCellValue(client.getFullName());
+                row.createCell(2).setCellValue(client.getPhone());
+                row.createCell(3).setCellValue(client.getEmail() == null ? "" : client.getEmail());
+                row.createCell(4).setCellValue(client.getCreatedAt() == null
+                        ? "" : client.getCreatedAt().format(DATE_FORMAT));
+            }
+
             for (int i = 0; i < headers.length; i++) {
                 sheet.autoSizeColumn(i);
+            }
+            for (int i = 0; i < clientHeaders.length; i++) {
+                clientSheet.autoSizeColumn(i);
             }
 
             workbook.write(out);

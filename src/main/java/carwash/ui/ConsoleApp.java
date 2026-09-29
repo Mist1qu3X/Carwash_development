@@ -20,6 +20,7 @@ import carwash.util.Exporter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -431,13 +432,18 @@ public class ConsoleApp {
         }
         // Excel или CSV — конкретная реализация Exporter
         List<Booking> bookings = bookingService.getAll();
-        if (bookings.isEmpty()) {
+        List<Client> clients = exporter instanceof ExcelExporter ? clientService.getAll() : List.of();
+        if (bookings.isEmpty() && clients.isEmpty()) {
             System.out.println("Нет данных для экспорта.");
             return;
         }
-        String fileName = exporter.getDefaultFileName();
-        exporter.export(bookings, fileName);
-        System.out.println("Данные экспортированы в файл: " + fileName);
+        Path filePath = Path.of(exporter.getDefaultFileName()).toAbsolutePath().normalize();
+        if (exporter instanceof ExcelExporter excelExporter) {
+            excelExporter.export(bookings, clients, filePath.toString());
+        } else {
+            exporter.export(bookings, filePath.toString());
+        }
+        System.out.println("Данные экспортированы в файл: " + filePath);
     }
 
     // ==================== БАЗА ДАННЫХ ====================
