@@ -123,6 +123,18 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
+    public List<Booking> sortByDateDesc(List<Booking> bookings) {
+        return bookings.stream()
+                .sorted(Comparator.comparing(Booking::getScheduledAt).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public List<Booking> sortByPriceAsc(List<Booking> bookings) {
+        return bookings.stream()
+                .sorted(Comparator.comparingDouble(Booking::getPrice))
+                .collect(Collectors.toList());
+    }
+
     public List<Booking> sortByPriceDesc(List<Booking> bookings) {
         return bookings.stream()
                 .sorted(Comparator.comparingDouble(Booking::getPrice).reversed())
@@ -132,6 +144,12 @@ public class BookingService {
     public List<Booking> sortByStatus(List<Booking> bookings) {
         return bookings.stream()
                 .sorted(Comparator.comparing((Booking b) -> b.getStatus().name()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Booking> sortByStatusDesc(List<Booking> bookings) {
+        return bookings.stream()
+                .sorted(Comparator.comparing((Booking b) -> b.getStatus().name()).reversed())
                 .collect(Collectors.toList());
     }
 

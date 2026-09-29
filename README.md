@@ -22,20 +22,20 @@
 - Maven (или IntelliJ IDEA — в ней Maven уже встроен).
 
 ## Настройка базы данных
-1. Создать базу:
+1. Установить и запустить PostgreSQL. Утилиты `createuser` и `createdb` должны быть доступны в терминале.
+2. Создать отдельного пользователя приложения и базу:
    ```sql
-   CREATE DATABASE carwash;
+   createuser -P carwash
+   createdb -O carwash carwash
    ```
-2. Открыть `src/main/java/carwash/util/DatabaseManager.java` и вписать свои
-   параметры подключения (по умолчанию пользователь `postgres`, пароль-заглушка):
+   `createuser` запросит пароль интерактивно.
+3. Создать локальный конфиг из примера:
    ```java
-   private static final String URL = "jdbc:postgresql://localhost:5432/carwash";
-   private static final String USER = "postgres";
-   private static final String PASSWORD = "your_password"; // ваш пароль
+   cp carwash.properties.example ~/.carwash.properties
    ```
-3. Создать таблицы и тестовые данные можно двумя способами:
-   - запустить программу и выбрать пункт меню **7** (выполнит `schema.sql`);
-   - или вручную: `psql -U postgres -d carwash -f src/main/resources/schema.sql`.
+   В `~/.carwash.properties` укажи пароль, который ввёл для пользователя `carwash`.
+   Параметры также можно переопределить переменными `CARWASH_DB_URL`, `CARWASH_DB_USER` и `CARWASH_DB_PASSWORD`.
+4. Запустить программу и выбрать пункт меню **7**, чтобы создать таблицы и тестовые данные. Этот пункт удаляет существующие таблицы перед созданием.
 
 ## Как запустить
 

@@ -8,6 +8,7 @@ run-local/
 # Экспортированные данные
 bookings.xlsx
 bookings.csv
+.carwash.properties
 
 # IntelliJ IDEA
 .idea/

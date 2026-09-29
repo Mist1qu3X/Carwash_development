@@ -31,6 +31,30 @@ public class ConsoleReader {
         }
     }
 
+    public String readPhone(String prompt) {
+        while (true) {
+            String value = readNonEmpty(prompt);
+            if (value.matches("\\+7-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}")) {
+                return value;
+            }
+            System.out.println("Ошибка: введите телефон в формате +7-900-123-45-67.");
+        }
+    }
+
+    public String readCarNumber(String prompt) {
+        while (true) {
+            String value = readNonEmpty(prompt);
+            boolean hasLetter = value.chars().anyMatch(Character::isLetter);
+            boolean hasDigit = value.chars().anyMatch(Character::isDigit);
+            if (value.length() >= 4 && value.length() <= 15
+                    && value.matches("[\\p{L}0-9 ]+") && hasLetter && hasDigit) {
+                return value;
+            }
+            System.out.println("Ошибка: гос. номер должен состоять из букв и цифр "
+                    + "(например А123ВС77, от 4 до 15 символов).");
+        }
+    }
+
     // Enter — оставить текущее значение
     public String readLineOrKeep(String prompt, String current) {
         String value = readLine(prompt);
