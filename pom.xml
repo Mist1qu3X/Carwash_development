@@ -12,12 +12,28 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- версия Java для компиляции -->
+        <!-- версия Java для компиляции (JavaFX 21 совместим с JDK 17+) -->
         <maven.compiler.release>17</maven.compiler.release>
+        <javafx.version>21.0.8</javafx.version>
+        <!-- главный класс консольного приложения (КР1) -->
         <exec.mainClass>carwash.Main</exec.mainClass>
+        <!-- главный класс JavaFX-приложения (КР2) -->
+        <javafx.mainClass>carwash.fx.CarWashApp</javafx.mainClass>
     </properties>
 
     <dependencies>
+        <!-- JavaFX: элементы управления и загрузка FXML (КР2) -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
         <!-- Драйвер PostgreSQL для подключения через JDBC -->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -43,7 +59,27 @@
                 <version>3.13.0</version>
             </plugin>
 
-            <!-- Быстрый запуск из консоли: mvn compile exec:java -->
+            <!-- Копирование ресурсов (FXML, CSS) в кодировке UTF-8 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Запуск JavaFX-приложения (КР2): mvn javafx:run -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>${javafx.mainClass}</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Быстрый запуск консоли (КР1): mvn compile exec:java -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
