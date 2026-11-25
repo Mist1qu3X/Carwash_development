@@ -17,3 +17,9 @@ bookings.csv
 # Прочее
 Thumbs.db
 .DS_Store
+# КР3: секреты и сборки
+.env
+node_modules/
+frontend/dist/
+# сборка React (npm run build кладёт её в static backend)
+backend/src/main/resources/static/

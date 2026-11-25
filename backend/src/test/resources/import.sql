@@ -1,0 +1,1 @@
+CREATE SEQUENCE booking_code_seq START WITH 1;

@@ -1,0 +1,22 @@
+# профиль для тестов: H2 в режиме совместимости с PostgreSQL, схема создаётся Hibernate
+spring:
+  datasource:
+    url: jdbc:h2:mem:carwash-${random.uuid};MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+
+app:
+  jwt:
+    # тестовый секрет (только для тестов, 256 бит)
+    secret-base64: dGVzdC1zZWNyZXQtZm9yLWNhcndhc2gtdW5pdC10ZXN0cy0xMjM0NTY3ODkw
+  bootstrap:
+    email: admin@test.local
+    name: Test Admin
+    password: Temp!Passw0rd-2026
+  bookings:
+    permanent-delete-enabled: true
